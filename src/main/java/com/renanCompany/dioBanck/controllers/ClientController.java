@@ -1,11 +1,13 @@
 package com.renanCompany.dioBanck.controllers;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,6 +32,12 @@ public class ClientController {
 	@GetMapping
 	public ResponseEntity<List<Client>> findAll(){
 		List<Client> foundClient = clientService.findAll();
+		return ResponseEntity.status(HttpStatus.FOUND).body(foundClient);
+	}
+	
+	@GetMapping("/{id}")
+	public ResponseEntity<Optional<Client>> findById(@PathVariable Long id){
+		Optional<Client> foundClient = clientService.findById(id);
 		return ResponseEntity.status(HttpStatus.FOUND).body(foundClient);
 	}
 
