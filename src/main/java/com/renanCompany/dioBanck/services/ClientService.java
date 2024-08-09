@@ -34,5 +34,20 @@ public class ClientService {
 	public Optional<Client> findById(Long id){
 		return clientRepository.findById(id);
 	}
+	
+	public Client update(Long id, Client updatedClient) {
+		Optional<Client> optClient = clientRepository.findById(id);
+		
+		if(optClient.isPresent()) {
+			Client existentClient = optClient.get();
+			existentClient.setName(updatedClient.getName());
+			existentClient.setCpf(updatedClient.getCpf());
+			existentClient.setAddress(updatedClient.getAddress());
+			clientRepository.save(existentClient);
+			return existentClient;
+		}else {
+			throw new RuntimeException("Client not found!");
+		}
+	}
 
 }
