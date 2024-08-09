@@ -1,9 +1,12 @@
 package com.renanCompany.dioBanck.entities;
 
+import java.util.Set;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -26,4 +29,7 @@ public class Client {
 	private String name;
 	private String cpf;
 	private String address;
+	
+	@OneToMany
+	private Set<Account> account;
 }
