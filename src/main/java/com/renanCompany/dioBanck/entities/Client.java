@@ -2,7 +2,9 @@ package com.renanCompany.dioBanck.entities;
 
 import java.util.Set;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -30,6 +32,6 @@ public class Client {
 	private String cpf;
 	private String address;
 	
-	@OneToMany
+	@OneToMany(mappedBy = "client", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private Set<Account> account;
 }
