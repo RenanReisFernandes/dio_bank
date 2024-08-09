@@ -8,7 +8,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name = "tb_savings_account")
-public class SavingsAccount extends Account {
+@Table(name = "tb_salary_account")
+public class SalaryAccount extends Account {
 
 }
