@@ -49,5 +49,15 @@ public class ClientService {
 			throw new RuntimeException("Client not found!");
 		}
 	}
+	
+	public void delete(Long id) {
+		Optional<Client> optClient = clientRepository.findById(id);
+		if(optClient.isEmpty()) {
+			
+			throw new RuntimeException("Client not found!");
+		}else {
+			clientRepository.deleteById(id);
+		}
+	}
 
 }
