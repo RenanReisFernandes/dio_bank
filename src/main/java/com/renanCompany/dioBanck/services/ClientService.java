@@ -30,5 +30,9 @@ public class ClientService {
 		List<Client> foundLint = clientRepository.findAll();
 		return foundLint;
 	}
+	
+	public Optional<Client> findById(Long id){
+		return clientRepository.findById(id);
+	}
 
 }
