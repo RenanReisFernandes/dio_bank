@@ -1,5 +1,6 @@
 package com.renanCompany.dioBanck.services;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,11 @@ public class ClientService {
 			}
 		}
 		return client;
+	}
+	
+	public List<Client> findAll(){
+		List<Client> foundLint = clientRepository.findAll();
+		return foundLint;
 	}
 
 }
