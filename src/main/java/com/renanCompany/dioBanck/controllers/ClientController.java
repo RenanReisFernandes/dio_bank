@@ -40,5 +40,10 @@ public class ClientController {
 		Optional<Client> foundClient = clientService.findById(id);
 		return ResponseEntity.status(HttpStatus.FOUND).body(foundClient);
 	}
+	
+	public ResponseEntity<Client> update(Long id, Client client){
+		Client foundClient = clientService.update(id, client);
+		return ResponseEntity.status(HttpStatus.OK).body(foundClient);
+	}
 
 }
