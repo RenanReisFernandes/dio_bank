@@ -34,8 +34,8 @@ classDiagram
 
     Client --> "1" Account : hasMany
     Account --> "1" SalaryAccounts : hasOne
-    Client --> "1" SavingsAccount : hasOne
-    Client --> "1" CheckingAccount : hasOne
+    Account --> "1" SavingsAccount : hasOne
+    Account --> "1" CheckingAccount : hasOne
 ```
 
     
