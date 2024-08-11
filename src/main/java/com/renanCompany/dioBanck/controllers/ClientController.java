@@ -1,7 +1,6 @@
 package com.renanCompany.dioBanck.controllers;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -24,8 +23,14 @@ import com.renanCompany.dioBanck.entities.Client;
 import com.renanCompany.dioBanck.mappers.ClientMapper;
 import com.renanCompany.dioBanck.services.ClientService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 @RestController
 @RequestMapping(value = "/client")
+@Tag(name = "API DIO BANK / CLIENT")
 public class ClientController {
 	
 	@Autowired
@@ -37,6 +42,15 @@ public class ClientController {
         this.clientService = clientService;
     }
 	
+	@Operation(summary = "criation of clients", method = "POST")
+	@ApiResponses(value = {
+			@ApiResponse(responseCode = "200", description = "insertions succssed"),
+			@ApiResponse(responseCode = "422", description = "Invalid requirement"),
+			@ApiResponse(responseCode = "400", description = "Invalid params"),
+			@ApiResponse(responseCode = "401", description = "user not found"),
+			@ApiResponse(responseCode = "500", description = "server broke")
+			
+	})	
 	@PostMapping
 	public ResponseEntity<ClientResponse> save(@RequestBody ClientRequest clientRequest) {
 	    Client client = mapper.toClient(clientRequest);
@@ -45,6 +59,15 @@ public class ClientController {
 	    return ResponseEntity.status(HttpStatus.CREATED).body(response);
 	}
 	
+	@Operation(summary = "found all clients", method = "GET")
+	@ApiResponses(value = {
+			@ApiResponse(responseCode = "200", description = "insertions succssed"),
+			@ApiResponse(responseCode = "422", description = "Invalid requirement"),
+			@ApiResponse(responseCode = "400", description = "Invalid params"),
+			@ApiResponse(responseCode = "401", description = "user not found"),
+			@ApiResponse(responseCode = "500", description = "server broke")
+			
+	})	
 	@GetMapping
 	public ResponseEntity<Set<ClientResponse>> findAll() {
 	    Set<Client> clients = new HashSet<>(clientService.findAll());
@@ -56,6 +79,15 @@ public class ClientController {
 	    return ResponseEntity.status(HttpStatus.OK).body(responses);
 	}
 	
+	@Operation(summary = "found clients by id", method = "GET")
+	@ApiResponses(value = {
+			@ApiResponse(responseCode = "200", description = "insertions succssed"),
+			@ApiResponse(responseCode = "422", description = "Invalid requirement"),
+			@ApiResponse(responseCode = "400", description = "Invalid params"),
+			@ApiResponse(responseCode = "401", description = "user not found"),
+			@ApiResponse(responseCode = "500", description = "server broke")
+			
+	})	
 	@GetMapping("/{id}")
 	public ResponseEntity<ClientResponse> findById(@PathVariable Long id) {
 	    Optional<Client> foundClient = clientService.findById(id);
@@ -68,6 +100,15 @@ public class ClientController {
 	    }
 	}
 	
+	@Operation(summary = "updating clients by id", method = "PUT")
+	@ApiResponses(value = {
+			@ApiResponse(responseCode = "200", description = "insertions succssed"),
+			@ApiResponse(responseCode = "422", description = "Invalid requirement"),
+			@ApiResponse(responseCode = "400", description = "Invalid params"),
+			@ApiResponse(responseCode = "401", description = "user not found"),
+			@ApiResponse(responseCode = "500", description = "server broke")
+			
+	})	
 	@PutMapping
 	public ResponseEntity<ClientResponse> update(@PathVariable Long id, @RequestBody Client client){
 		Client foundClient = clientService.update(id, client);
@@ -75,6 +116,15 @@ public class ClientController {
 		return ResponseEntity.status(HttpStatus.OK).body(response);
 	}
 	
+	@Operation(summary = "delete clients by id", method = "DELETE")
+	@ApiResponses(value = {
+			@ApiResponse(responseCode = "200", description = "insertions succssed"),
+			@ApiResponse(responseCode = "422", description = "Invalid requirement"),
+			@ApiResponse(responseCode = "400", description = "Invalid params"),
+			@ApiResponse(responseCode = "401", description = "user not found"),
+			@ApiResponse(responseCode = "500", description = "server broke")
+			
+	})
 	@DeleteMapping
 	public ResponseEntity<Void> delete(@PathVariable Long id){
 		clientService.delete(id);
