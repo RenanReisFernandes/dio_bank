@@ -116,6 +116,15 @@ public class ClientController {
 		return ResponseEntity.status(HttpStatus.OK).body(response);
 	}
 	
+	@Operation(summary = "delete clients by id", method = "DELETE")
+	@ApiResponses(value = {
+			@ApiResponse(responseCode = "200", description = "insertions succssed"),
+			@ApiResponse(responseCode = "422", description = "Invalid requirement"),
+			@ApiResponse(responseCode = "400", description = "Invalid params"),
+			@ApiResponse(responseCode = "401", description = "user not found"),
+			@ApiResponse(responseCode = "500", description = "server broke")
+			
+	})
 	@DeleteMapping
 	public ResponseEntity<Void> delete(@PathVariable Long id){
 		clientService.delete(id);
