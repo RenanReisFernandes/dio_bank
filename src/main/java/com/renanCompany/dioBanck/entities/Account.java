@@ -37,6 +37,7 @@ public class Account {
 	private Long id;
 	@Column(nullable = false)
 	private Long agencyNumber;
+	private Long accountNumber;
 	private BigDecimal balance;
 	
     @OneToOne(optional = false)
