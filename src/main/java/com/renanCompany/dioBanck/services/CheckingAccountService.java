@@ -21,5 +21,14 @@ public class CheckingAccountService {
 		}
 		 throw new RuntimeException("Deposit not succeeded! Value must be greater than zero.");
 	}
+	
+	@Transactional(rollbackOn = Exception.class)
+	private void withdraw(BigDecimal value) {
+		if(value.compareTo(account.getBalance()) <= 0) {
+			account.setBalance(account.getBalance().subtract(value));
+			System.out.println("withdraw succeeded!");
+		}
+		 throw new RuntimeException("withdraw not succeeded! no balance enough.");
+	}
 
 }
