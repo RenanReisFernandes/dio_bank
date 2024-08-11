@@ -15,7 +15,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.renanCompany.dioBanck.DTO.request.ClientRequest;
+import com.renanCompany.dioBanck.DTO.response.ClientResponse;
 import com.renanCompany.dioBanck.entities.Client;
+import com.renanCompany.dioBanck.mappers.ClientMapper;
 import com.renanCompany.dioBanck.services.ClientService;
 
 @RestController
@@ -24,11 +27,14 @@ public class ClientController {
 	
 	@Autowired
 	private ClientService clientService;
+	private ClientMapper mapper;
 	
 	@PostMapping
-	public ResponseEntity<Client> save(@RequestBody Client client){
-		Client createdClient = clientService.save(client);
-		return ResponseEntity.status(HttpStatus.CREATED).body(createdClient);
+	public ResponseEntity<ClientResponse> save(@RequestBody ClientRequest clientRequest){
+		Client clientMapped = mapper.toClient(clientRequest);
+		Client createdClient = clientService.save(clientMapped);
+		ClientResponse response = mapper.toClientResponse(createdClient);
+		return ResponseEntity.status(HttpStatus.CREATED).body(response);
 	}
 	
 	@GetMapping

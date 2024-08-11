@@ -1,6 +1,7 @@
 package com.renanCompany.dioBanck.mappers;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
@@ -28,7 +29,7 @@ public class ClientMapper {
 	public List<ClientResponse> toClientResponseList(List<Client> clientList){
 		return clientList.stream()
 				.map(this:: toClientResponse)
-				.toList();
+				.collect(Collectors.toList());
 	}
 
 }
