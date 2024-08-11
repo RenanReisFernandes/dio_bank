@@ -95,6 +95,15 @@ public class AccountController {
 		return ResponseEntity.status(HttpStatus.FOUND).body(optAccount);
 	}
 	
+	@Operation(summary = "delete clients by id", method = "DELETE")
+	@ApiResponses(value = {
+			@ApiResponse(responseCode = "200", description = "insertions succssed"),
+			@ApiResponse(responseCode = "422", description = "Invalid requirement"),
+			@ApiResponse(responseCode = "400", description = "Invalid params"),
+			@ApiResponse(responseCode = "401", description = "user not found"),
+			@ApiResponse(responseCode = "500", description = "server broke")
+			
+	})	
 	@DeleteMapping("/id")
 	public ResponseEntity<Void> delete(@PathVariable Long id){
 		accountService.delete(id);
