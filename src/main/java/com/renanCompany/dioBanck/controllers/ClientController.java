@@ -1,7 +1,10 @@
 package com.renanCompany.dioBanck.controllers;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -26,21 +29,31 @@ import com.renanCompany.dioBanck.services.ClientService;
 public class ClientController {
 	
 	@Autowired
-	private ClientService clientService;
-	private ClientMapper mapper;
+	private final ClientService clientService;
+	private final ClientMapper mapper;
+
+	public ClientController(ClientMapper mapper, ClientService clientService) {
+        this.mapper = mapper;
+        this.clientService = clientService;
+    }
 	
 	@PostMapping
-	public ResponseEntity<ClientResponse> save(@RequestBody ClientRequest clientRequest){
-		Client clientMapped = mapper.toClient(clientRequest);
-		Client createdClient = clientService.save(clientMapped);
-		ClientResponse response = mapper.toClientResponse(createdClient);
-		return ResponseEntity.status(HttpStatus.CREATED).body(response);
+	public ResponseEntity<ClientResponse> save(@RequestBody ClientRequest clientRequest) {
+	    Client client = mapper.toClient(clientRequest);
+	    Client clientSaved = clientService.save(client);
+	    ClientResponse response = mapper.toClientResponse(clientSaved);
+	    return ResponseEntity.status(HttpStatus.CREATED).body(response);
 	}
 	
 	@GetMapping
-	public ResponseEntity<List<Client>> findAll(){
-		List<Client> foundClient = clientService.findAll();
-		return ResponseEntity.status(HttpStatus.FOUND).body(foundClient);
+	public ResponseEntity<Set<ClientResponse>> findAll() {
+	    Set<Client> clients = new HashSet<>(clientService.findAll());
+	    
+	    Set<ClientResponse> responses = clients.stream()
+	                                           .map(mapper::toClientResponse)
+	                                           .collect(Collectors.toSet());
+	    
+	    return ResponseEntity.status(HttpStatus.OK).body(responses);
 	}
 	
 	@GetMapping("/{id}")

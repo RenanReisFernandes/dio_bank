@@ -1,6 +1,7 @@
 package com.renanCompany.dioBanck.mappers;
 
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
@@ -26,10 +27,10 @@ public class ClientMapper {
 		return mapper.map(client, ClientResponse.class);
 	}
 	
-	public List<ClientResponse> toClientResponseList(List<Client> clientList){
+	public Set<ClientResponse> toClientResponseList(List<Client> clientList){
 		return clientList.stream()
 				.map(this:: toClientResponse)
-				.collect(Collectors.toList());
+				.collect(Collectors.toSet());
 	}
 
 }
