@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 import com.renanCompany.dioBanck.entities.Account;
 
 @Repository
-public interface AccountRepositorie extends JpaRepository<Account, Long> {
+public interface AccountRepository extends JpaRepository<Account, Long> {
 	
 
 }
