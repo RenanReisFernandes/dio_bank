@@ -57,15 +57,22 @@ public class ClientController {
 	}
 	
 	@GetMapping("/{id}")
-	public ResponseEntity<Optional<Client>> findById(@PathVariable Long id){
-		Optional<Client> foundClient = clientService.findById(id);
-		return ResponseEntity.status(HttpStatus.FOUND).body(foundClient);
+	public ResponseEntity<ClientResponse> findById(@PathVariable Long id) {
+	    Optional<Client> foundClient = clientService.findById(id);
+
+	    if (foundClient.isPresent()) {
+	        ClientResponse response = mapper.toClientResponse(foundClient.get());
+	        return ResponseEntity.ok(response);
+	    } else {
+	        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+	    }
 	}
 	
 	@PutMapping
-	public ResponseEntity<Client> update(@PathVariable Long id, @RequestBody Client client){
+	public ResponseEntity<ClientResponse> update(@PathVariable Long id, @RequestBody Client client){
 		Client foundClient = clientService.update(id, client);
-		return ResponseEntity.status(HttpStatus.OK).body(foundClient);
+		ClientResponse response = mapper.toClientResponse(foundClient);
+		return ResponseEntity.status(HttpStatus.OK).body(response);
 	}
 	
 	@DeleteMapping
