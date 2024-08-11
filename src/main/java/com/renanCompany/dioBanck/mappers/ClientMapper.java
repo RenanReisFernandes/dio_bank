@@ -18,15 +18,17 @@ public class ClientMapper {
 	private final ModelMapper mapper;
 	
 	public Client toClient(ClientRequest clientRequest) {
-		return null;
+		return mapper.map(clientRequest, Client.class);
 	}
 	
 	public ClientResponse toClientResponse(Client client) {
-		return null;
+		return mapper.map(client, ClientResponse.class);
 	}
 	
 	public List<ClientResponse> toClientResponseList(List<Client> clientList){
-		return null;
+		return clientList.stream()
+				.map(this:: toClientResponse)
+				.toList();
 	}
 
 }
