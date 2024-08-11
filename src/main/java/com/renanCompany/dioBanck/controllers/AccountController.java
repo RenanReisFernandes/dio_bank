@@ -42,5 +42,14 @@ public class AccountController {
 		}
 		return ResponseEntity.status(HttpStatus.FOUND).body(optAccount);
 	}
+	
+	@GetMapping("/{accountNumber}")
+	public ResponseEntity<Optional<Account>> findByAccountNumber(@PathVariable Long accountNumber){
+		Optional<Account> optAccount = accountService.findByAccountNumber(accountNumber);
+		if(optAccount.isEmpty()) {
+			return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+		}
+		return ResponseEntity.status(HttpStatus.FOUND).body(optAccount);
+	}
 
 }
