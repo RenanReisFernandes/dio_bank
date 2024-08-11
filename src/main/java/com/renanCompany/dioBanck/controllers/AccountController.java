@@ -77,6 +77,15 @@ public class AccountController {
 		return ResponseEntity.status(HttpStatus.FOUND).body(optAccount);
 	}
 	
+	@Operation(summary = "find clients by account number", method = "GET")
+	@ApiResponses(value = {
+			@ApiResponse(responseCode = "200", description = "insertions succssed"),
+			@ApiResponse(responseCode = "422", description = "Invalid requirement"),
+			@ApiResponse(responseCode = "400", description = "Invalid params"),
+			@ApiResponse(responseCode = "401", description = "user not found"),
+			@ApiResponse(responseCode = "500", description = "server broke")
+			
+	})	
 	@GetMapping("/{accountNumber}")
 	public ResponseEntity<Optional<Account>> findByAccountNumber(@PathVariable Long accountNumber){
 		Optional<Account> optAccount = accountService.findByAccountNumber(accountNumber);
