@@ -44,12 +44,30 @@ public class AccountController {
 		return ResponseEntity.status(HttpStatus.CREATED).body(accountSaved);
 	}
 	
+	@Operation(summary = "find all clients", method = "GET")
+	@ApiResponses(value = {
+			@ApiResponse(responseCode = "200", description = "insertions succssed"),
+			@ApiResponse(responseCode = "422", description = "Invalid requirement"),
+			@ApiResponse(responseCode = "400", description = "Invalid params"),
+			@ApiResponse(responseCode = "401", description = "user not found"),
+			@ApiResponse(responseCode = "500", description = "server broke")
+			
+	})	
 	@GetMapping
 	public ResponseEntity<List<Account>> findAll(){
 		List<Account> list = accountService.findAll();
 		return ResponseEntity.status(HttpStatus.FOUND).body(list);
 	}
 	
+	@Operation(summary = "find clients by id", method = "GET")
+	@ApiResponses(value = {
+			@ApiResponse(responseCode = "200", description = "insertions succssed"),
+			@ApiResponse(responseCode = "422", description = "Invalid requirement"),
+			@ApiResponse(responseCode = "400", description = "Invalid params"),
+			@ApiResponse(responseCode = "401", description = "user not found"),
+			@ApiResponse(responseCode = "500", description = "server broke")
+			
+	})	
 	@GetMapping("/{id}")
 	public ResponseEntity<Optional<Account>> findById(@PathVariable Long id){
 		Optional<Account> optAccount = accountService.findById(id);
