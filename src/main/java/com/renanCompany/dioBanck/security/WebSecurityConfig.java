@@ -1,5 +1,10 @@
-package com.renanCompany.dioBanck.security;
+//package com.renanCompany.dioBanck.security;
 
-public class WebSecurityConfig {
+//import org.springframework.context.annotation.Configuration;
+//import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+//import org.springframework.security.config.annotation.web.configuration.WebSecurityConfiguration;
 
-}
+//@Configuration
+//public class WebSecurityConfig extends WebSecurityConfiguration{
+//
+//}
