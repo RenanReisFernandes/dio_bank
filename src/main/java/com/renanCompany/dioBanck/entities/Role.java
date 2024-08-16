@@ -6,7 +6,11 @@ import java.util.UUID;
 
 import org.springframework.security.core.GrantedAuthority;
 
+import com.renanCompany.dioBanck.enums.UserRole;
+
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -20,16 +24,16 @@ public class Role implements GrantedAuthority ,Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private UUID id;
-	
-	private Role role;
+	@Enumerated(EnumType.STRING)
+	private UserRole role;
 
 	
-	public Role getRole() {
+	public UserRole getRole() {
 		return role;
 	}
 
-
-	public void setRole(Role role) {
+	
+	public void setRole(UserRole role) {
 		this.role = role;
 	}
 
