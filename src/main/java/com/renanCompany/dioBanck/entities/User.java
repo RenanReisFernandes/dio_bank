@@ -2,16 +2,23 @@ package com.renanCompany.dioBanck.entities;
 
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.List;
 import java.util.UUID;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+
+import com.fasterxml.jackson.core.sym.Name;
+import com.renanCompany.dioBanck.enums.UserRole;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -26,6 +33,16 @@ public class User implements UserDetails, Serializable {
 	private String username;
 	@Column(unique = true, nullable = false)
 	private String password;
+	
+	@ManyToMany
+	@JoinTable(
+			name = "tb_user_role",
+			joinColumns= @JoinColumn(name= "user_id"),
+			inverseJoinColumns = @JoinColumn(name= "role_id")
+			
+			)
+	public List<UserRole> roles;
+	
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		// TODO Auto-generated method stub

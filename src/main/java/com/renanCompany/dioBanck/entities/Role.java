@@ -8,6 +8,7 @@ import org.springframework.security.core.GrantedAuthority;
 
 import com.renanCompany.dioBanck.enums.UserRole;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -25,6 +26,7 @@ public class Role implements GrantedAuthority ,Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private UUID id;
 	@Enumerated(EnumType.STRING)
+	@Column(nullable = false, unique = true)
 	private UserRole role;
 
 	
@@ -65,8 +67,7 @@ public class Role implements GrantedAuthority ,Serializable {
 
 	@Override
 	public String getAuthority() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.role.toString();
 	}
 
 }
