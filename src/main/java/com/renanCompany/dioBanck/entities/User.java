@@ -26,7 +26,6 @@ public class User implements UserDetails, Serializable {
 	private String username;
 	@Column(unique = true, nullable = false)
 	private String password;
-	
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		// TODO Auto-generated method stub
@@ -35,18 +34,15 @@ public class User implements UserDetails, Serializable {
 	@Override
 	public String getPassword() {
 		// TODO Auto-generated method stub
-		return null;
+		return this.password;
 	}
 	@Override
 	public String getUsername() {
 		// TODO Auto-generated method stub
-		return null;
+		return this.username;
 	}
 	public UUID getId() {
 		return id;
-	}
-	public void setId(UUID id) {
-		this.id = id;
 	}
 	public static long getSerialversionuid() {
 		return serialVersionUID;
@@ -57,6 +53,7 @@ public class User implements UserDetails, Serializable {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+	
 	
 	
 }
