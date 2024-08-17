@@ -2,10 +2,14 @@ package com.renanCompany.dioBanck.security.entities;
 
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.List;
 import java.util.UUID;
 
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+
+import com.renanCompany.dioBanck.security.enums.Role;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -37,13 +41,15 @@ public class User implements UserDetails, Serializable {
 	private String password;
 	private String login;
 	
-	private String role;
+	private Role role;
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		// TODO Auto-generated method stub
-		return null;
+		if(this.role== Role.ADMIN) return List.of(new SimpleGrantedAuthority("admin"), new SimpleGrantedAuthority("user"));
+		else return List.of(new SimpleGrantedAuthority("user"));
 	}
+		
+		
 
 	@Override
 	public String getUsername() {
