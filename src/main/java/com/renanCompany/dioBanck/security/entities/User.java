@@ -1,6 +1,11 @@
 package com.renanCompany.dioBanck.security.entities;
 
+import java.io.Serializable;
+import java.util.Collection;
 import java.util.UUID;
+
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -22,7 +27,8 @@ import lombok.ToString;
 @ToString
 @Entity
 @Table(name = "tb_users")
-public class User {
+public class User implements UserDetails, Serializable {
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,5 +38,17 @@ public class User {
 	private String login;
 	
 	private String role;
+
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getUsername() {
+		// TODO Auto-generated method stub
+		return login;
+	}
 
 }
