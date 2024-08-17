@@ -40,8 +40,13 @@ public class User implements UserDetails, Serializable {
 	
 	private String password;
 	private String login;
-	
 	private Role role;
+	
+	public User(String password, String login, Role role) {
+		this.password=password;
+		this.login=login;
+		this.role = role;
+	}
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {

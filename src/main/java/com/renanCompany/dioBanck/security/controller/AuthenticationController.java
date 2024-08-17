@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,6 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.renanCompany.dioBanck.security.dto.AuthenticationDto;
 import com.renanCompany.dioBanck.security.dto.RegisterDto;
+import com.renanCompany.dioBanck.security.entities.User;
+import com.renanCompany.dioBanck.security.repositories.UserRepository;
 
 import jakarta.validation.Valid;
 
@@ -22,6 +25,9 @@ import jakarta.validation.Valid;
 public class AuthenticationController {
 	@Autowired
 	private AuthenticationManager authenticationManager;
+	
+	@Autowired
+	private UserRepository userRepository;
 	
 	@PostMapping("/login")
 	public ResponseEntity<?> login(@RequestBody @Valid AuthenticationDto data) {
@@ -32,8 +38,16 @@ public class AuthenticationController {
 	}
 	
 	@PostMapping("/register")
-	public ResponseEntity register(@RequestBody @Valid RegisterDto data) {
-		
-	}
+	public ResponseEntity<?> register(@RequestBody @Valid RegisterDto data) {
 
+	    if (this.userRepository.findByLogin(data.login()) != null) {
+	        return ResponseEntity.badRequest().body("User already exists");
+	    }
+	    
+	    String encriptedPassword = new BCryptPasswordEncoder().encode(data.password());
+	    User newUser = new User(data.login(), encriptedPassword, data.role());
+	    this.userRepository.save(newUser);
+	    
+	    return ResponseEntity.ok().build();
+	}
 }
