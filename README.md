@@ -30,7 +30,14 @@ classDiagram
     + SavingsAccount
     + CheckingAccount
     }
+
+    class SalaryAccounts{
+       -  Long id; 
+    }
     
+    class SavingsAccount{
+       -  Long id; 
+    }
 
     Client --> "1" Account : hasMany
     Account --> "1" SalaryAccounts : hasOne
@@ -38,7 +45,41 @@ classDiagram
     Account --> "1" CheckingAccount : hasOne
 ```
 
-    
+ ```mermaid
+classDiagram
+    class BraiSrvLibMidiaService {
+
+        + getAgencia() Agencia
+
+        + getConta() Conta
+
+    }
+
+ 
+
+    class BFFService {
+
+        - braiSrvLibMidiaService: BraiSrvLibMidiaService
+
+        + getAgenciaTratada() AgenciaDTO
+
+        + getContaTratada() ContaDTO
+
+    }
+
+ 
+
+    class FrontEndController {
+
+        + exibirDadosAgencia() void
+
+        + exibirDadosConta() void
+
+    }
+    BraiSrvLibMidiaService --> BFFService : fornece dados brutos
+
+    BFFService --> FrontEndController : fornece dados tratados
+```
 
     ### 🔨 FERRAMENTAS UTILIZADAS
 
