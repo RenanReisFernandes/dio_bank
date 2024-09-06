@@ -30,7 +30,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 @Entity
-@Table(name = "tb_users")
+@Table(name = "TB_USERS")
 public class User implements UserDetails, Serializable {
 	private static final long serialVersionUID = 1L;
 
