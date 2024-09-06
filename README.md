@@ -45,41 +45,6 @@ classDiagram
     Account --> "1" CheckingAccount : hasOne
 ```
 
- ```mermaid
-classDiagram
-    class BraiSrvLibMidiaService {
-
-        + getAgencia() Agencia
-
-        + getConta() Conta
-
-    }
-
- 
-
-    class BFFService {
-
-        - braiSrvLibMidiaService: BraiSrvLibMidiaService
-
-        + getAgenciaTratada() AgenciaDTO
-
-        + getContaTratada() ContaDTO
-
-    }
-
- 
-
-    class FrontEndController {
-
-        + exibirDadosAgencia() void
-
-        + exibirDadosConta() void
-
-    }
-    BraiSrvLibMidiaService --> BFFService : fornece dados brutos
-
-    BFFService --> FrontEndController : fornece dados tratados
-```
 
     ### 🔨 FERRAMENTAS UTILIZADAS
 
